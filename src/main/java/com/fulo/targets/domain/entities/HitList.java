@@ -17,7 +17,7 @@ public class HitList {
     private UUID id;
 
     @Column(name = "name", nullable = false)
-    private String title;
+    private String name;
 
     @Column(name = "description")
     private String description;
@@ -34,12 +34,12 @@ public class HitList {
     public HitList() {
     }
 
-    public HitList(UUID id, String description, LocalDateTime created, List<Target> targets, String title, LocalDateTime updated) {
+    public HitList(UUID id, String name, String description, List<Target> targets, LocalDateTime created, LocalDateTime updated) {
         this.created = created;
         this.description = description;
         this.id = id;
         this.targets = targets;
-        this.title = title;
+        this.name = name;
         this.updated = updated;
     }
 
@@ -75,12 +75,12 @@ public class HitList {
         this.targets = targets;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocalDateTime getUpdated() {
@@ -95,12 +95,12 @@ public class HitList {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         HitList hitList = (HitList) o;
-        return Objects.equals(id, hitList.id) && Objects.equals(title, hitList.title) && Objects.equals(description, hitList.description) && Objects.equals(targets, hitList.targets) && Objects.equals(created, hitList.created) && Objects.equals(updated, hitList.updated);
+        return Objects.equals(id, hitList.id) && Objects.equals(name, hitList.name) && Objects.equals(description, hitList.description) && Objects.equals(targets, hitList.targets) && Objects.equals(created, hitList.created) && Objects.equals(updated, hitList.updated);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, targets, created, updated);
+        return Objects.hash(id, name, description, targets, created, updated);
     }
 
     @Override
@@ -108,7 +108,7 @@ public class HitList {
         return "HitList{" +
                 "created=" + created +
                 ", id=" + id +
-                ", title='" + title + '\'' +
+                ", title='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", targets=" + targets +
                 ", updated=" + updated +
