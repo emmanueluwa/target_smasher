@@ -6,10 +6,12 @@ import com.fulo.targets.domain.entities.Target;
 import com.fulo.targets.domain.entities.TargetStatus;
 import com.fulo.targets.mappers.HitListMapper;
 import com.fulo.targets.mappers.TargetMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class HitListMapperImpl implements HitListMapper {
 
     private final TargetMapper targetMapper;
