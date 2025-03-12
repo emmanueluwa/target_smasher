@@ -31,6 +31,11 @@ public class Target {
     @Column(name = "priority", nullable = false)
     private TargetPriority priority;
 
+    //only load hitlist from db when needed
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="hit_list_id")
+    private HitList hitList;
+
     @Column(name = "created", nullable = false)
     private LocalDateTime created;
 
@@ -40,15 +45,16 @@ public class Target {
     public Target() {
     }
 
-    public Target(UUID id, String name, String description, String why, TargetStatus status, TargetPriority priority, LocalDateTime created, LocalDateTime updated) {
+    public Target(UUID id, String description, String why, LocalDateTime created, String name, TargetPriority priority, TargetStatus status, LocalDateTime updated, HitList hitList) {
+        this.created = created;
+        this.description = description;
+        this.hitList = hitList;
         this.id = id;
         this.name = name;
-        this.description = description;
-        this.why = why;
-        this.status = status;
         this.priority = priority;
-        this.created = created;
+        this.status = status;
         this.updated = updated;
+        this.why = why;
     }
 
     public LocalDateTime getCreated() {
@@ -65,6 +71,14 @@ public class Target {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public HitList getHitList() {
+        return hitList;
+    }
+
+    public void setHitList(HitList hitList) {
+        this.hitList = hitList;
     }
 
     public UUID getId() {
@@ -119,12 +133,12 @@ public class Target {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Target target = (Target) o;
-        return Objects.equals(id, target.id) && Objects.equals(name, target.name) && Objects.equals(description, target.description) && Objects.equals(why, target.why) && status == target.status && priority == target.priority && Objects.equals(created, target.created) && Objects.equals(updated, target.updated);
+        return Objects.equals(id, target.id) && Objects.equals(name, target.name) && Objects.equals(description, target.description) && Objects.equals(why, target.why) && status == target.status && priority == target.priority && Objects.equals(hitList, target.hitList) && Objects.equals(created, target.created) && Objects.equals(updated, target.updated);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, why, status, priority, created, updated);
+        return Objects.hash(id, name, description, why, status, priority, hitList, created, updated);
     }
 
     @Override
@@ -137,6 +151,7 @@ public class Target {
                 ", why='" + why + '\'' +
                 ", status=" + status +
                 ", priority=" + priority +
+                ", hitList=" + hitList +
                 ", updated=" + updated +
                 '}';
     }
