@@ -7,4 +7,6 @@ import java.util.List;
 public interface HitListService {
 
     List<HitList> listHitLists();
+
+    HitList createHitList(HitList hitList);
 }

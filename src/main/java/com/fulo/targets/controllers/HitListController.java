@@ -1,11 +1,10 @@
 package com.fulo.targets.controllers;
 
 import com.fulo.targets.domain.dto.HitListDto;
+import com.fulo.targets.domain.entities.HitList;
 import com.fulo.targets.mappers.HitListMapper;
 import com.fulo.targets.services.HitListService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,8 +29,12 @@ public class HitListController {
                 .toList();
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "It works!";
+    @PostMapping
+    public HitListDto createHitList(@RequestBody HitListDto hitListDto) {
+        HitList createdHitList = hitListService.createHitList(
+                hitListMapper.fromDto(hitListDto)
+        );
+
+        return hitListMapper.toDto(createdHitList);
     }
 }

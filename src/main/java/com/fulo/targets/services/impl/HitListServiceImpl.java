@@ -5,6 +5,7 @@ import com.fulo.targets.repositories.HitListRepository;
 import com.fulo.targets.services.HitListService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -19,5 +20,25 @@ public class HitListServiceImpl implements HitListService {
     @Override
     public List<HitList> listHitLists() {
         return hitListRepository.findAll();
+    }
+
+    @Override
+    public HitList createHitList(HitList hitList) {
+        if(null != hitList.getId()) {
+            throw new IllegalArgumentException("Hit list already has an ID!");
+        }
+        if(null == hitList.getName() || hitList.getName().isBlank()) {
+            throw new IllegalArgumentException("Hit list name must be present.");
+        }
+
+        LocalDateTime now = LocalDateTime.now();
+        return hitListRepository.save(new HitList(
+                null,
+                hitList.getName(),
+                hitList.getDescription(),
+                null,
+                now,
+                now
+        ));
     }
 }
