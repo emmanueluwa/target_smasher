@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class HitListServiceImpl implements HitListService {
@@ -41,4 +43,11 @@ public class HitListServiceImpl implements HitListService {
                 now
         ));
     }
+
+    @Override
+    public Optional<HitList> getHitList(UUID id) {
+        return hitListRepository.findById(id);
+    }
+
+
 }

@@ -7,6 +7,8 @@ import com.fulo.targets.services.HitListService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 //marking as bean
 @RestController
@@ -36,5 +38,10 @@ public class HitListController {
         );
 
         return hitListMapper.toDto(createdHitList);
+    }
+
+    @GetMapping(path = "/{hit_list_id}")
+    public Optional<HitListDto> getHitList(@PathVariable("hit_list_id") UUID hitListId) {
+        return hitListService.getHitList(hitListId).map(hitListMapper::toDto);
     }
 }
