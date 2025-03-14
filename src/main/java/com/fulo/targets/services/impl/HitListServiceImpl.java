@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -49,5 +50,24 @@ public class HitListServiceImpl implements HitListService {
         return hitListRepository.findById(id);
     }
 
+    @Override
+    public HitList updateHitList(UUID hitListId, HitList hitList) {
+        if(null == hitList.getId()) {
+            throw new IllegalArgumentException("Hit list must have an ID");
+        }
 
+        if(!Objects.equals(hitList.getId(), hitListId)) {
+            throw new IllegalArgumentException("Attempting to change hit list id");
+        }
+
+        HitList existingHitList = hitListRepository.findById(hitListId).orElseThrow(() ->
+            new IllegalArgumentException("Hit list is not found")
+        );
+
+        existingHitList.setName(hitList.getName());
+        existingHitList.setDescription(hitList.getDescription());
+        existingHitList.setUpdated(LocalDateTime.now());
+
+        return hitListRepository.save(existingHitList);
+    }
 }

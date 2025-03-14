@@ -44,4 +44,17 @@ public class HitListController {
     public Optional<HitListDto> getHitList(@PathVariable("hit_list_id") UUID hitListId) {
         return hitListService.getHitList(hitListId).map(hitListMapper::toDto);
     }
+
+    @PutMapping(path = "/{hit_list_id}")
+    public HitListDto updateHitList(
+            @PathVariable("hit_list_id") UUID hitListId,
+            @RequestBody HitListDto hitListDto
+    ) {
+        HitList updatedHitList = hitListService.updateHitList(
+                hitListId,
+                hitListMapper.fromDto(hitListDto)
+        );
+
+        return hitListMapper.toDto(updatedHitList);
+    }
 }

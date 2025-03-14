@@ -13,4 +13,6 @@ public interface HitListService {
     HitList createHitList(HitList hitList);
 
     Optional<HitList> getHitList(UUID id);
+
+    HitList updateHitList(UUID hitListId, HitList hitList);
 }
