@@ -12,4 +12,6 @@ public interface TargetService {
     Target createTarget(UUID hitListId, Target target);
 
     Optional<Target> getTarget(UUID hitListId, UUID targetId);
+
+    Target updateTarget(UUID hitListId, UUID targetId, Target target);
 }

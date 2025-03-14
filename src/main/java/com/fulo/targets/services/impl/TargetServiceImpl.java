@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -67,5 +68,33 @@ public class TargetServiceImpl implements TargetService {
     @Override
     public Optional<Target> getTarget(UUID hitListId, UUID targetId) {
         return targetRepository.findByHitListIdAndId(hitListId, targetId);
+    }
+
+    @Override
+    public Target updateTarget(UUID hitListId, UUID targetId, Target target) {
+        if(null == target.getId()) {
+            throw new IllegalArgumentException("Target must have an ID!");
+        }
+        if(!Objects.equals(targetId, target.getId())) {
+            throw new IllegalArgumentException("Target IDs do not match");
+        }
+        if(null == target.getPriority()) {
+            throw new IllegalArgumentException("Target must have a priority");
+        }
+        if(null == target.getStatus()) {
+            throw new IllegalArgumentException("Target must have a status");
+        }
+
+        Target existingTarget = targetRepository.findByHitListIdAndId(hitListId, targetId)
+                .orElseThrow(() -> new IllegalArgumentException("Target not found"));
+
+        existingTarget.setName(target.getName());
+        existingTarget.setDescription(target.getDescription());
+        existingTarget.setWhy(target.getWhy());
+        existingTarget.setPriority(target.getPriority());
+        existingTarget.setStatus(target.getStatus());
+        existingTarget.setUpdated(LocalDateTime.now());
+
+        return targetRepository.save(existingTarget);
     }
 }

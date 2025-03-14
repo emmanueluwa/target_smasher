@@ -48,4 +48,19 @@ public class TargetController {
     ) {
         return targetService.getTarget(hitListId, targetId).map(targetMapper::toDto);
     }
+
+    @PutMapping(path = "/{target_id}")
+    public TargetDto updateTarget(
+            @PathVariable("hit_list_id") UUID hitListId,
+            @PathVariable("target_id") UUID targetId,
+            @RequestBody TargetDto targetDto
+    ) {
+        Target updatedTarget = targetService.updateTarget(
+                hitListId,
+                targetId,
+                targetMapper.fromDto(targetDto)
+        );
+
+        return targetMapper.toDto(updatedTarget);
+    }
 }
