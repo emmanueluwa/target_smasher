@@ -63,4 +63,9 @@ public class TargetServiceImpl implements TargetService {
 
         return targetRepository.save(targetToSave);
     }
+
+    @Override
+    public Optional<Target> getTarget(UUID hitListId, UUID targetId) {
+        return targetRepository.findByHitListIdAndId(hitListId, targetId);
+    }
 }
