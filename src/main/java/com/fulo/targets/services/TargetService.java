@@ -14,4 +14,6 @@ public interface TargetService {
     Optional<Target> getTarget(UUID hitListId, UUID targetId);
 
     Target updateTarget(UUID hitListId, UUID targetId, Target target);
+
+    void deleteTarget(UUID hitListId, UUID targetId);
 }

@@ -63,4 +63,12 @@ public class TargetController {
 
         return targetMapper.toDto(updatedTarget);
     }
+
+    @DeleteMapping(path = "/{target_id}")
+    public void deleteTarget(
+            @PathVariable("hit_list_id") UUID hitListId,
+            @PathVariable("target_id") UUID targetId
+    ) {
+        targetService.deleteTarget(hitListId, targetId);
+    }
 }

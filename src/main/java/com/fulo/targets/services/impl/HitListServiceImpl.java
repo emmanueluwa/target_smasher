@@ -4,6 +4,7 @@ import com.fulo.targets.domain.entities.HitList;
 import com.fulo.targets.repositories.HitListRepository;
 import com.fulo.targets.services.HitListService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -50,6 +51,7 @@ public class HitListServiceImpl implements HitListService {
         return hitListRepository.findById(id);
     }
 
+    @Transactional
     @Override
     public HitList updateHitList(UUID hitListId, HitList hitList) {
         if(null == hitList.getId()) {

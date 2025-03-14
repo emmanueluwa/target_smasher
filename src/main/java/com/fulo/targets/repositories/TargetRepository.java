@@ -13,4 +13,6 @@ public interface TargetRepository extends JpaRepository<Target, UUID> {
 
     List<Target> findByHitListId(UUID hitListId);
     Optional<Target> findByHitListIdAndId(UUID hitListId, UUID id);
+
+    void deleteByHitListIdAndId(UUID hitListId, UUID id);
 }

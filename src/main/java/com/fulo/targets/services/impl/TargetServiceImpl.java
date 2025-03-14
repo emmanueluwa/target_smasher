@@ -8,6 +8,7 @@ import com.fulo.targets.repositories.HitListRepository;
 import com.fulo.targets.repositories.TargetRepository;
 import com.fulo.targets.services.TargetService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,6 +32,7 @@ public class TargetServiceImpl implements TargetService {
         return targetRepository.findByHitListId(targetListId);
     }
 
+    @Transactional
     @Override
     public Target createTarget(UUID hitListId, Target target) {
         if(null != target.getId()) {
@@ -70,6 +72,7 @@ public class TargetServiceImpl implements TargetService {
         return targetRepository.findByHitListIdAndId(hitListId, targetId);
     }
 
+    @Transactional
     @Override
     public Target updateTarget(UUID hitListId, UUID targetId, Target target) {
         if(null == target.getId()) {
@@ -96,5 +99,12 @@ public class TargetServiceImpl implements TargetService {
         existingTarget.setUpdated(LocalDateTime.now());
 
         return targetRepository.save(existingTarget);
+    }
+
+    //custom delete method add transactional annotation
+    @Transactional
+    @Override
+    public void deleteTarget(UUID hitListId, UUID targetId) {
+        targetRepository.deleteByHitListIdAndId(hitListId, targetId);
     }
 }
