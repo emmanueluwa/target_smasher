@@ -57,4 +57,9 @@ public class HitListController {
 
         return hitListMapper.toDto(updatedHitList);
     }
+
+    @DeleteMapping(path = "/{hit_list_id}")
+    public void deleteHitList(@PathVariable("hit_list_id") UUID hitListId) {
+        hitListService.deleteHitList(hitListId);
+    }
 }

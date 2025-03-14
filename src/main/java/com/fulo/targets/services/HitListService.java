@@ -15,4 +15,6 @@ public interface HitListService {
     Optional<HitList> getHitList(UUID id);
 
     HitList updateHitList(UUID hitListId, HitList hitList);
+
+    void deleteHitList(UUID hitListId);
 }

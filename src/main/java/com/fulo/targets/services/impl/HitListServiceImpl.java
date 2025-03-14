@@ -70,4 +70,10 @@ public class HitListServiceImpl implements HitListService {
 
         return hitListRepository.save(existingHitList);
     }
+
+    @Override
+    public void deleteHitList(UUID hitListId) {
+        //springboot deleteById method handles non existing entities gracefully
+        hitListRepository.deleteById(hitListId);
+    }
 }
