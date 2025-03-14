@@ -18,7 +18,8 @@ public class GlobalExceptionHandler {
 
         ErrorResponse errorResponse = new ErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
-                "Something went wrong.",
+//                "Something went wrong.",
+                ex.getMessage(),
                 req.getDescription(false)
         );
 

@@ -6,5 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface TargetService {
-    List<Target> listTargets(UUID targetListId);
+    List<Target> listTargets(UUID hitListId);
+
+    Target createTarget(UUID hitListId, Target target);
 }

@@ -45,7 +45,7 @@ public class Target {
     public Target() {
     }
 
-    public Target(UUID id, String description, String why, TargetStatus status, String name, TargetPriority priority, LocalDateTime created, LocalDateTime updated, HitList hitList) {
+    public Target(UUID id, String name, String description, String why, TargetStatus status, TargetPriority priority, HitList hitList, LocalDateTime created, LocalDateTime updated) {
         this.created = created;
         this.description = description;
         this.hitList = hitList;

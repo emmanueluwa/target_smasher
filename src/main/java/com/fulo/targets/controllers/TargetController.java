@@ -1,12 +1,10 @@
 package com.fulo.targets.controllers;
 
 import com.fulo.targets.domain.dto.TargetDto;
+import com.fulo.targets.domain.entities.Target;
 import com.fulo.targets.mappers.TargetMapper;
 import com.fulo.targets.services.TargetService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -32,4 +30,13 @@ public class TargetController {
                 .toList();
     }
 
+    @PostMapping
+    public TargetDto createTarget(@PathVariable("hit_list_id") UUID hitListId, @RequestBody TargetDto targetDto) {
+        Target createdTarget = targetService.createTarget(
+                hitListId,
+                targetMapper.fromDto(targetDto)
+        );
+
+        return targetMapper.toDto(createdTarget);
+    }
 }

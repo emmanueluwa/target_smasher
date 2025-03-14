@@ -12,13 +12,11 @@ public class TargetMapperImpl implements TargetMapper {
     public Target fromDto(TargetDto targetDto) {
         return new Target(
                 targetDto.id(),
-                targetDto.description(),
+                targetDto.name(), targetDto.description(),
                 targetDto.why(),
                 targetDto.status(),
-                targetDto.name(),
                 targetDto.priority(),
-                null,
-                null,
+                null, null,
                 null
         );
     }
